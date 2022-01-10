@@ -1,0 +1,20 @@
+filebeat.inputs:
+- type: mqtt
+  username: "asdfasdgasdg"
+  password: "sflkjfdg"
+  hosts: 
+    - tcp://host.docker.internal:1883
+  topics: 
+    - luft/v2/LOGS/#
+
+processors:
+  - decode_json_fields:
+      fields: ["lvl", "file", "l", "fun", "txt"]
+
+setup.kibana:
+  host: "host.docker.internal:5601"
+  username: "elastic"
+  password: "changeme"
+ 
+output.logstash:
+  hosts: ["host.docker.internal:5044"]
